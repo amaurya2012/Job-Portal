@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Jobs Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+}
+
+/* HEADER */
+.header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+}
+
+.header h4 {
+    margin:0;
+}
+
+.btn-nav {
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+/* CARD GRID */
+.grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap:20px;
+}
+
+/* JOB CARD */
+.job-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.3s;
+    position: relative;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* TITLE */
+.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* BADGE */
+.badge-box {
+    background: #ffc107;
+    color:black;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+/* TAG */
+.tag {
+    background: rgba(255,255,255,0.2);
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin:3px;
+    display:inline-block;
+}
+
+/* BUTTONS */
+.actions {
+    margin-top:15px;
+}
+
+.actions a {
+    margin:4px;
+    border-radius:20px;
+}
+
+/* EMPTY */
+.empty {
+    text-align:center;
+    margin-top:50px;
+    opacity:0.7;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h4>💼 My Jobs</h4>
+    <div>
+        <a href="/dashboard" class="btn btn-light btn-sm btn-nav">🏠 Dashboard</a>
+        <a href="/logout" class="btn btn-danger btn-sm btn-nav">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+{% if jobs %}
+<div class="grid">
+
+{% for job in jobs %}
+<div class="job-card">
+
+<!-- TOP -->
+<div class="d-flex justify-content-between align-items-center">
+    <div class="title">{{ job.title }}</div>
+    <div class="badge-box">👥 {{ job.total_applicants }}</div>
+</div>
+
+<small>🏢 {{ job.company }}</small><br>
+<small>📍 {{ job.location }}</small><br>
+<small>💰 ₹{{ job.salary }}</small>
+
+<hr>
+
+<p style="font-size:14px; opacity:0.9;">
+{{ job.description[:120] }}...
+</p>
+
+<!-- TAGS -->
+<div>
+    <span class="tag">🧠 {{ job.skills }}</span>
+    <span class="tag">🎯 {{ job.experience }}</span>
+    <span class="tag">💼 {{ job.job_type }}</span>
+</div>
+
+<div class="mt-2">
+    <span class="tag">📅 {{ job.deadline }}</span>
+    <span class="tag">📌 {{ job.openings }} openings</span>
+</div>
+
+<!-- ACTIONS -->
+<div class="actions">
+
+<a href="/employer/edit-job/{{ job.id }}" class="btn btn-info btn-sm">
+✏️ Edit
+</a>
+
+<a href="/employer/delete-job/{{ job.id }}"
+   class="btn btn-danger btn-sm"
+   onclick="return confirm('Delete this job?')">
+🗑️ Delete
+</a>
+
+<a href="/view-applicants/{{ job.id }}"
+   class="btn btn-success btn-sm">
+👥 Applicants
+</a>
+
+</div>
+
+</div>
+{% endfor %}
+
+</div>
+
+{% else %}
+<div class="empty">
+    <h4>No Jobs Posted Yet 😔</h4>
+    <p>Start by posting your first job</p>
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>

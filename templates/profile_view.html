@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Profile</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 10px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-btn {
+            padding:8px 14px;
+            border-radius:999px;
+            background: rgba(255,255,255,0.1);
+            color:white;
+            text-decoration:none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .profile-card {
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section h5 {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 5px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="top-nav">
+    <a href="javascript:history.back()" class="nav-btn">← Back</a>
+    <a href="/all-applications" class="nav-btn">Applications</a>
+</div>
+
+<div class="profile-card">
+
+    <h2 class="mb-4">👤 Candidate Profile</h2>
+
+    <!-- BASIC INFO -->
+    <div class="section">
+        <h5>Basic Information</h5>
+        <p><span class="label">Name:</span> {{ data[3] }}</p>
+        <p><span class="label">Email:</span> {{ data[2] }}</p>
+        <p><span class="label">Phone:</span> {{ data[4] }}</p>
+        <p><span class="label">Status:</span> {{ data[6] }}</p>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section">
+        <h5>Skills</h5>
+        <p>{{ data[8] if data[8] else "Not provided" }}</p>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="section">
+        <h5>Experience</h5>
+        <p>{{ data[9] if data[9] else "Not provided" }}</p>
+    </div>
+
+    <!-- RESUME -->
+    <div class="section">
+        <h5>Resume</h5>
+
+        {% if data[5] %}
+        <a href="/static/resumes/{{ data[5] }}" target="_blank"
+           class="btn btn-light btn-sm btn-custom">
+            📄 View Resume
+        </a>
+        {% else %}
+        <p>No resume uploaded</p>
+        {% endif %}
+    </div>
+
+    <!-- INTERVIEW DETAILS -->
+    <div class="section">
+        <h5>Interview Details</h5>
+
+        {% if data[7] %}
+            <p><span class="label">Date:</span> {{ data[7] }}</p>
+            <p><span class="label">Time:</span> {{ data[8] }}</p>
+            <p><span class="label">Link:</span> 
+                <a href="{{ data[9] }}" target="_blank" class="text-info">Join Meeting</a>
+            </p>
+        {% else %}
+            <p>No interview scheduled</p>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

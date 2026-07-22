@@ -1,0 +1,29 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# SQLite database
+*.db
+*.sqlite3
+instance/
+
+# Editor/OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Flask
+*.log
+
+static/resumes/*
+!static/resumes/.gitkeep
